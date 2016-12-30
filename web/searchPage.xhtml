@@ -14,39 +14,47 @@
         <h:outputLabel>Keyword:</h:outputLabel>
         <h:inputText>search</h:inputText>
         <br/>
-        <h:selectOneMenu value="#{category.category}">
+        <h:selectOneMenu value="#{categoryBean.category}">
             Category:
-            <f:selectItems value="#{category.getCategoryMap()}"/>
+            <f:selectItems value="#{categoryBean.getCategoryMap()}"/>
         </h:selectOneMenu>
     </h:form>
 
     <h:commandButton action="cart" value="Cart"/>
+    <h:form>
+        <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
+            <h:outputText value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
+            <h:commandLink action="#{productBean.previous}"
+                           value="Previous #{productBean.pagination.pageSize}"
+                           rendered="#{productBean.pagination.hasPreviousPage}"/>
+            <h:commandLink action="#{productBean.next}"
+                           value="Next #{productBean.pagination.pageSize}"
+                           rendered="#{productBean.pagination.hasNextPage}"/>
 
-    <p:dataTable value="" paginator="true" rows="10">
-        <h:column>
-            <f:facet name="header">
-                Product id
-            </f:facet>
-            <h:outputText value="#{cd.id}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Title
-            </f:facet>
-            <h:outputText value="#{cd.titel}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Interpret
-            </f:facet>
-            <h:outputText value="#{cd.interpret}"/>
-        </h:column>
-        <h:column>
-            <f:facet name="header">
-                Jahr
-            </f:facet>
-            <h:outputText value="#{cd.jahr}"/>
-        </h:column>
-    </p:dataTable>
+            <h:dataTable value="#{productBean.dataModel}" var="product">
+                <h:column headerText="Product id">
+                    <h:outputText value="#{product.productId}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Product name
+                    </f:facet>
+                    <h:outputText value="#{product.productName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Product description
+                    </f:facet>
+                    <h:outputText value="#{product.productDescription}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Product price
+                    </f:facet>
+                    <h:outputText value="#{product.productPrice}"/>
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+    </h:form>
 </h:body>
 </html>

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@ManagedBean(name = "category")
+@ManagedBean(name = "categoryBean")
 public class CategoryBean implements Serializable {
   private static Map<String, Object> categoryMap;
   static {

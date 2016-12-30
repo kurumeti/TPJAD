@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>JSF 2.0 Hello World</title>
+</h:head>
+<h:body bgcolor="white">
+    <h:form>
+        <h:outputLabel>Keyword:</h:outputLabel>
+        <h:inputText>search</h:inputText>
+        <br/>
+        <h:selectOneMenu value="#{category.category}">
+            Category:
+            <f:selectItems value="#{category.getCategoryMap()}"/>
+        </h:selectOneMenu>
+    </h:form>
+
+    <h:commandButton action="cart" value="Cart"/>
+
+    <p:dataTable value="" paginator="true" rows="10">
+        <h:column>
+            <f:facet name="header">
+                Product id
+            </f:facet>
+            <h:outputText value="#{cd.id}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Title
+            </f:facet>
+            <h:outputText value="#{cd.titel}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Interpret
+            </f:facet>
+            <h:outputText value="#{cd.interpret}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                Jahr
+            </f:facet>
+            <h:outputText value="#{cd.jahr}"/>
+        </h:column>
+    </p:dataTable>
+</h:body>
+</html>

@@ -1,43 +1,47 @@
 package beans;
 
+import ctrl.ClientController;
 import model.Product;
+import repo.OrderRepo;
+import repo.ProductRepo;
 import utils.PaginationHelper;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "productBean")
-@ViewScoped
+@SessionScoped
 public class ProductBean implements Serializable {
 
-  private static final long serialVersionUID = 1L;
-  private static List<Product> products;
-  static {
-    products = new ArrayList<>();
-    //TODO: db things
-    products.add(new Product("Staff of Moses", "Can split things. Especially red, watery ones.", BigDecimal.valueOf(100), 1, ""));
-    products.add(new Product("Caduceus", "Best used when buying or selling things", BigDecimal.valueOf(25), 1, ""));
-    products.add(new Product("Helmet of Hades", "Invisibility is still in fashion.", BigDecimal.valueOf(80), 1, ""));
-    products.add(new Product("Winged Sandals of Perseus", "Walking is such a drag.", BigDecimal.valueOf(75), 1, ""));
-    products.add(new Product("Trident", "Curiously, it also causes earthquakes.", BigDecimal.valueOf(120), 1, ""));
-  }
+  @EJB
+  private ProductRepo productRepo;
+  @EJB
+  private OrderRepo orderRepo;
+
+  private List<Product> products = null;
+  private ClientController controller;
 
   private PaginationHelper pagination;
   private int selectedItemIndex;
   private DataModel dataModel = null;
 
   public PaginationHelper getPagination() {
+    if(controller == null) {
+      controller = new ClientController(productRepo, orderRepo);
+    }
+
+    if(products == null) {
+      products = controller.getAllProducts();
+    }
 
     if (pagination == null) {
 
-      pagination = new PaginationHelper(3) {
+      pagination = new PaginationHelper(10) {
         @Override
         public int getItemsCount() {
           return products.size();

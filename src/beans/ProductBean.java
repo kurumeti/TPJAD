@@ -9,8 +9,10 @@ import utils.PaginationHelper;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.List;
 
@@ -76,5 +78,14 @@ public class ProductBean implements Serializable {
       dataModel = getPagination().createPageDataModel();
     }
     return dataModel;
+  }
+
+  public void clickListener() {
+    int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+    for (Product p : products) {
+      if (p.getProductId() == id) {
+        DetailsBean.setProduct(p);
+      }
+    }
   }
 }

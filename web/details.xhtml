@@ -6,9 +6,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>JSF 2.0 Hello World</title>
+    <title>Details</title>
 </h:head>
 <h:body bgcolor="white">
-
+    <h:graphicImage value="productImages/#{detailsBean.image}"/>
+    <br/>
+    <h:outputText value="#{detailsBean.name}"/>
 </h:body>
 </html>

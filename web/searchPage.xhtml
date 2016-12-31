@@ -31,9 +31,10 @@
                     <f:facet name="header">
                         Product name
                     </f:facet>
-                    <a href="details.xhtml">
+                    <h:commandLink actionListener="#{productBean.clickListener}" action="details">
+                        <f:param name="id" value="#{product.productId}"/>
                         <h:outputText value="#{product.productName}"/>
-                    </a>
+                    </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header">

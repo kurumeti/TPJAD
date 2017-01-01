@@ -4,6 +4,10 @@ import model.Product;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @ManagedBean(name = "detailsBean")
 @ViewScoped
@@ -24,5 +28,15 @@ public class DetailsBean {
 
   public String getImage() {
     return product.getProductImageFileName();
+  }
+
+  public List<String> getDetails() {
+    List<String> details = new ArrayList<>();
+    Collections.addAll(details, product.getProductDescription().split(";"));
+    return details;
+  }
+
+  public BigDecimal getPrice() {
+    return product.getProductPrice();
   }
 }

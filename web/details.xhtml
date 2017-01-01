@@ -11,6 +11,15 @@
 <h:body bgcolor="white">
     <h:graphicImage value="productImages/#{detailsBean.image}"/>
     <br/>
+    <h1>Product name</h1>
     <h:outputText value="#{detailsBean.name}"/>
+    <br/>
+    <h1>Details</h1>
+    <ui:repeat value="#{detailsBean.details}" var="detail">
+        <h:outputText value="#{detail}"/><br/>
+    </ui:repeat>
+    <br/>
+    <h1>Price</h1>
+    <h:outputText value="#{detailsBean.price}"/>
 </h:body>
 </html>

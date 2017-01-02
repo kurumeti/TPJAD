@@ -1,11 +1,13 @@
 package beans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ManagedBean(name = "categoryBean")
+@SessionScoped
 public class CategoryBean implements Serializable {
     private static Map<String, Object> categoryMap;
 

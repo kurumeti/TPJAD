@@ -23,29 +23,18 @@
     <h:commandButton action="cart" value="Cart"/>
     <h:form>
         <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
-            <h:outputText value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
-            <h:commandLink action="#{productBean.previous}"
-                           value="Previous #{productBean.pagination.pageSize}"
-                           rendered="#{productBean.pagination.hasPreviousPage}"/>
-            <h:commandLink action="#{productBean.next}"
-                           value="Next #{productBean.pagination.pageSize}"
-                           rendered="#{productBean.pagination.hasNextPage}"/>
-
             <h:dataTable value="#{productBean.dataModel}" var="product">
-                <h:column headerText="Product id">
-                    <h:outputText value="#{product.productId}"/>
+                <h:column>
+                    <h:graphicImage value="productImages/#{product.productImageFileName}" width="50" height="50"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         Product name
                     </f:facet>
-                    <h:outputText value="#{product.productName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        Product description
-                    </f:facet>
-                    <h:outputText value="#{product.productDescription}"/>
+                    <h:commandLink actionListener="#{productBean.clickListener}" action="details">
+                        <f:param name="id" value="#{product.productId}"/>
+                        <h:outputText value="#{product.productName}"/>
+                    </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
@@ -53,7 +42,20 @@
                     </f:facet>
                     <h:outputText value="#{product.productPrice}"/>
                 </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Available quantity
+                    </f:facet>
+                    <h:outputText value="#{product.productQuantity}"/>
+                </h:column>
             </h:dataTable>
+            <h:outputText value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
+            <h:commandLink action="#{productBean.previous}"
+                           value="Previous #{productBean.pagination.pageSize}"
+                           rendered="#{productBean.pagination.hasPreviousPage}"/>
+            <h:commandLink action="#{productBean.next}"
+                           value="Next #{productBean.pagination.pageSize}"
+                           rendered="#{productBean.pagination.hasNextPage}"/>
         </h:panelGroup>
     </h:form>
 </h:body>

@@ -8,13 +8,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import java.awt.event.ActionEvent;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "productBean")
-@ViewScoped
+@SessionScoped
 public class ProductBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,48 +29,64 @@ public class ProductBean implements Serializable {
         products.add(new Product("Trident", "Curiously, it also causes earthquakes.", "Did not know that", new Float(120), 1, ""));
     }
 
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
-    private DataModel dataModel = null;
+  private PaginationHelper pagination;
+  private int selectedItemIndex;
+  private DataModel dataModel = null;
 
-    public PaginationHelper getPagination() {
+  public PaginationHelper getPagination() {
+    if(controller == null) {
+      controller = new ClientController(productRepo, orderRepo);
+    }
 
-        if (pagination == null) {
+    if(products == null) {
+      products = controller.getAllProducts();
+    }
 
-            pagination = new PaginationHelper(3) {
-                @Override
-                public int getItemsCount() {
-                    return products.size();
-                }
+    if (pagination == null) {
 
-                @Override
-                public DataModel<Product> createPageDataModel() {
-                    System.out.println(getPageItemIndex());
-                    return new ListDataModel<>(products.subList(getPageItemIndex(), Math.min(getPageItemIndex() + getPageSize(), products.size())));
-                }
-            };
+      pagination = new PaginationHelper(10) {
+        @Override
+        public int getItemsCount() {
+          return products.size();
         }
-        return pagination;
-    }
 
-    private void recreateModel() {
-        dataModel = null;
-    }
-
-    public void next() {
-        getPagination().nextPage();
-        recreateModel();
-    }
-
-    public void previous() {
-        getPagination().previousPage();
-        recreateModel();
-    }
-
-    public DataModel getDataModel() {
-        if (dataModel == null) {
-            dataModel = getPagination().createPageDataModel();
+        @Override
+        public DataModel<Product> createPageDataModel() {
+          System.out.println(getPageItemIndex());
+          return new ListDataModel<>(products.subList(getPageItemIndex(), Math.min(getPageItemIndex() + getPageSize(), products.size())));
         }
-        return dataModel;
+      };
     }
+    return pagination;
+  }
+
+  private void recreateModel() {
+    dataModel = null;
+  }
+
+  public void next() {
+    getPagination().nextPage();
+    recreateModel();
+  }
+
+  public void previous() {
+    getPagination().previousPage();
+    recreateModel();
+  }
+
+  public DataModel getDataModel() {
+    if (dataModel == null) {
+      dataModel = getPagination().createPageDataModel();
+    }
+    return dataModel;
+  }
+
+  public void clickListener() {
+    int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+    for (Product p : products) {
+      if (p.getProductId() == id) {
+        DetailsBean.setProduct(p);
+      }
+    }
+  }
 }

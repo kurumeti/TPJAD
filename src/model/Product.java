@@ -83,4 +83,31 @@ public class Product {
   public String toString() {
     return productName + ": " + productDescription + "; Price: " + productPrice + "; Available: " + productQuantity;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Product product = (Product) o;
+
+    if (productId != product.productId) return false;
+    if (productQuantity != product.productQuantity) return false;
+    if (productName != null ? !productName.equals(product.productName) : product.productName != null) return false;
+    if (productDescription != null ? !productDescription.equals(product.productDescription) : product.productDescription != null)
+      return false;
+    if (productPrice != null ? !productPrice.equals(product.productPrice) : product.productPrice != null) return false;
+    return productImageFileName != null ? productImageFileName.equals(product.productImageFileName) : product.productImageFileName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = productId;
+    result = 31 * result + (productName != null ? productName.hashCode() : 0);
+    result = 31 * result + (productDescription != null ? productDescription.hashCode() : 0);
+    result = 31 * result + (productPrice != null ? productPrice.hashCode() : 0);
+    result = 31 * result + productQuantity;
+    result = 31 * result + (productImageFileName != null ? productImageFileName.hashCode() : 0);
+    return result;
+  }
 }

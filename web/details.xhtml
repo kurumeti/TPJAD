@@ -21,5 +21,17 @@
     <br/>
     <h1>Price</h1>
     <h:outputText value="#{detailsBean.price}"/>
+    <br/>
+    <h:form>
+
+        <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"/>
+        <h:commandButton action="#{cartBean.addToCart(detailsBean.getProduct(), detailsBean.quantity)}"
+                         value="Add to cart">
+        </h:commandButton>
+    </h:form>
+    <br/>
+    <h:form>
+        <h:commandButton action="cart" value="Cart"/>
+    </h:form>
 </h:body>
 </html>

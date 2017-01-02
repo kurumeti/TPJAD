@@ -11,14 +11,21 @@
 </h:head>
 <h:body bgcolor="white">
     <h:form>
-        <h:dataTable value="#{cartBean.cart}" var="product">
+        <h:dataTable value="#{cartBean.cart}" var="entry">
             <h:column>
                 <f:facet name="header">
-                    Product price
+                    Product Name
                 </f:facet>
-                <h:outputText value="#{cartBean.cart.get(product)}"/>
+                <h:outputText value="#{entry.key.productName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Quantity
+                </f:facet>
+                <h:outputText value="#{entry.value}"/>
             </h:column>
         </h:dataTable>
+        <h:commandButton action="orderDetails" value="Complete order" actionListener="#{orderBean.setOrder(cartBean.order)}"/>
     </h:form>
 </h:body>
 </html>

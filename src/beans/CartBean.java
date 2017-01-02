@@ -18,13 +18,6 @@ import java.util.Map;
 @SessionScoped
 public class CartBean {
 
-  @EJB
-  private ProductRepo productRepo;
-  @EJB
-  private OrderRepo orderRepo;
-
-  private ClientController controller;
-
   //When I did this, only God and I knew what I was doing.
   //Now, only God knows.
   private Map<Product, Integer> cart;
@@ -50,7 +43,7 @@ public class CartBean {
     return order;
   }
 
-  public Map<Product, Integer> getCart() {
-    return cart;
+  public List<Map.Entry<Product, Integer>> getCart() {
+    return new ArrayList<>(cart.entrySet());
   }
 }

@@ -6,6 +6,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <h:form>
+        <h:outputLabel value="Name"/>
+        <h:inputText value="#{orderBean.name}"/><br/>
+        <h:outputLabel value="Address"/>
+        <h:inputText value="#{orderBean.address}"/><br/>
+        <h:outputLabel value="Phone"/>
+        <h:inputText value="#{orderBean.phone}"/><br/>
+        <h:outputLabel value="E-mail"/>
+        <h:inputText value="#{orderBean.email}"/><br/>
+        <h:commandButton action="${orderBean.completeOrder()}" value="Send"/>
+    </h:form>
 </f:view>
 </html>

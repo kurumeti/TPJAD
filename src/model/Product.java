@@ -91,6 +91,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return productName + ": " + productDescription + "; Price: " + productPrice + "; Available: " + productQuantity;
+        return productName + " (" + productCategory +"): " + productDescription + "; Price: " + productPrice + "; Available: " + productQuantity;
     }
 }

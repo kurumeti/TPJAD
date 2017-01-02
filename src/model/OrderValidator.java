@@ -10,7 +10,7 @@ public class OrderValidator {
       return false;
     if (o.getClientAddress().isEmpty() || (o.getClientAddress().length() < 1 || o.getClientAddress().length() > 254))
       return false;
-    if (o.getOrderTotal().compareTo(new BigDecimal(0)) <= 0)
+    if (o.getOrderTotal() <= 0)
       return false;
     return true;
   }

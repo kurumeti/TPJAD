@@ -15,13 +15,13 @@ public class Order {
   private int orderId;
   private String clientName;
   private String clientAddress;
-  private BigDecimal orderTotal;
+  private float orderTotal;
   private Date orderDate;
 
   public Order() {
   }
 
-  public Order(String clientName, String clientAddress, BigDecimal orderTotal, Date orderDate) {
+  public Order(String clientName, String clientAddress, float orderTotal, Date orderDate) {
     this.clientName = clientName;
     this.clientAddress = clientAddress;
     this.orderTotal = orderTotal;
@@ -52,11 +52,11 @@ public class Order {
     this.clientAddress = clientAddress;
   }
 
-  public BigDecimal getOrderTotal() {
+  public float getOrderTotal() {
     return orderTotal;
   }
 
-  public void setOrderTotal(BigDecimal orderTotal) {
+  public void setOrderTotal(float orderTotal) {
     this.orderTotal = orderTotal;
   }
 

@@ -41,7 +41,7 @@ public class DetailsBean {
     return details;
   }
 
-  public BigDecimal getPrice() {
+  public float getPrice() {
     return product.getProductPrice();
   }
 

@@ -7,26 +7,27 @@ import java.util.Map;
 
 @ManagedBean(name = "categoryBean")
 public class CategoryBean implements Serializable {
-  private static Map<String, Object> categoryMap;
-  static {
-    categoryMap = new LinkedHashMap<>();
-    //TODO: load from db
-    categoryMap.put("Cat1", "Cat1"); //label, value
-    categoryMap.put("Cat2", "Cat2");
-    categoryMap.put("Cat3", "Cat3");
-  }
+    private static Map<String, Object> categoryMap;
 
-  private String category;
+    static {
+        categoryMap = new LinkedHashMap<>();
+        //TODO: load from db
+        categoryMap.put("Cat1", "Cat1"); //label, value
+        categoryMap.put("Cat2", "Cat2");
+        categoryMap.put("Cat3", "Cat3");
+    }
 
-  public String getCategory() {
-    return category;
-  }
+    private String category;
 
-  public void setCategory(String category) {
-    this.category = category;
-  }
+    public String getCategory() {
+        return category;
+    }
 
-  public static Map<String, Object> getCategoryMap() {
-    return categoryMap;
-  }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public static Map<String, Object> getCategoryMap() {
+        return categoryMap;
+    }
 }

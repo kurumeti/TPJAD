@@ -17,14 +17,14 @@ public class Product {
     private String productName;
     private String productDescription;
     private String productCategory;
-    private Float productPrice;
+    private float productPrice;
     private int productQuantity;
     private String productImageFileName;
 
     public Product() {
     }
 
-    public Product(String productName, String productDescription, String productCategory, Float productPrice, int productQuantity, String productImageFileName) {
+    public Product(String productName, String productDescription, String productCategory, float productPrice, int productQuantity, String productImageFileName) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.productCategory = productCategory;
@@ -65,11 +65,11 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public Float getProductPrice() {
+    public float getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Float productPrice) {
+    public void setProductPrice(float productPrice) {
         this.productPrice = productPrice;
     }
 

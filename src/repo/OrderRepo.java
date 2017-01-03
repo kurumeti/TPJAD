@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class OrderRepo {
   @PersistenceContext(unitName = "mysql")
   private EntityManager entityManager;
-  private OrderValidator orderValidator;
+  private OrderValidator orderValidator = new OrderValidator();
 
   public Order addOrder(Order o) throws Exception {
     try {

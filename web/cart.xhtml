@@ -24,8 +24,15 @@
                 </f:facet>
                 <h:outputText value="#{entry.value}"/>
             </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Price
+                </f:facet>
+                <h:outputText value="#{entry.value*entry.key.productPrice}"/>
+            </h:column>
         </h:dataTable>
-        <h:commandButton action="orderDetails" value="Complete order" actionListener="#{orderBean.setOrder(cartBean.order)}"/>
+        <h:outputLabel value="#{cartBean.totalPrice}"/>
+        <h:commandButton action="orderDetails" value="Complete order" actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"/>
     </h:form>
 </h:body>
 </html>

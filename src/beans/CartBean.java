@@ -35,6 +35,14 @@ public class CartBean {
     }
   }
 
+  public float getTotalPrice() {
+    float rez = 0;
+    for (Product p : cart.keySet()) {
+      rez += p.getProductPrice() * cart.get(p);
+    }
+    return rez;
+  }
+
   public List<String> getOrder() {
     List<String> order = new ArrayList<>();
     for (Product p : cart.keySet()) {

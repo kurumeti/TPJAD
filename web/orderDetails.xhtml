@@ -15,7 +15,7 @@
         <h:inputText value="#{orderBean.phone}"/><br/>
         <h:outputLabel value="E-mail"/>
         <h:inputText value="#{orderBean.email}"/><br/>
-        <h:commandButton action="${orderBean.completeOrder()}" value="Send"/>
+        <h:commandButton actionListener="${orderBean.completeOrder()}" action="searchPage" value="Send"/>
     </h:form>
 </f:view>
 </html>

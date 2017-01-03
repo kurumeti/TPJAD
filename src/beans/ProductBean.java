@@ -30,8 +30,26 @@ public class ProductBean implements Serializable {
   private ClientController controller;
 
   private PaginationHelper pagination;
-  private int selectedItemIndex;
   private DataModel dataModel = null;
+
+  private String keyword;
+  private String category;
+
+  public String getKeyword() {
+    return keyword;
+  }
+
+  public void setKeyword(String keyword) {
+    this.keyword = keyword;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
 
   public PaginationHelper getPagination() {
     if(controller == null) {
@@ -88,5 +106,17 @@ public class ProductBean implements Serializable {
         DetailsBean.setProduct(p);
       }
     }
+  }
+
+  public void search() {
+    //TODO use keyword and category to retrieve products
+    //TODO special category "All", for all categories
+    //TODO empty keyword means do not filter by keyword
+    if("".equals(keyword)) {
+      products = controller.getAllProducts();
+    } else {
+      products = controller.getFilteredProducts(keyword);
+    }
+    recreateModel();
   }
 }

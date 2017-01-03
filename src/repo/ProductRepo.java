@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -58,5 +59,16 @@ public class ProductRepo {
     } catch (IllegalArgumentException | TransactionRequiredException ex) {
       throw new Exception(ex.getMessage());
     }
+  }
+
+  public List<String> getCategories() {
+    List<String> rez = new ArrayList<>();
+    try {
+      TypedQuery<String> query = entityManager.createQuery("SELECT distinct p.productCategory FROM Product p", String.class);
+      rez = query.getResultList();
+    }catch (Exception ex) {
+      System.out.println(ex.getMessage());
+    }
+    return rez;
   }
 }

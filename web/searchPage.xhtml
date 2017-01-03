@@ -12,16 +12,16 @@
 <h:body bgcolor="white">
     <h:form>
         <h:outputLabel>Keyword:</h:outputLabel>
-        <h:inputText>search</h:inputText>
+        <h:inputText value="#{productBean.keyword}">search</h:inputText>
         <br/>
-        <h:selectOneMenu value="#{categoryBean.category}">
+        <h:selectOneMenu value="#{productBean.category}">
             Category:
-            <f:selectItems value="#{categoryBean.getCategoryMap()}"/>
+            <f:selectItems value="#{searchBean.getCategoryMap()}"/>
         </h:selectOneMenu>
-    </h:form>
 
-    <h:commandButton action="cart" value="Cart"/>
-    <h:form>
+        <h:commandButton action="#{productBean.search}" value="Apply filters"/>
+        <h:commandButton action="cart" value="Cart"/>
+
         <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
             <h:dataTable value="#{productBean.dataModel}" var="product">
                 <h:column>
@@ -49,7 +49,8 @@
                     <h:outputText value="#{product.productQuantity}"/>
                 </h:column>
             </h:dataTable>
-            <h:outputText value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
+            <h:outputText
+                    value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
             <h:commandLink action="#{productBean.previous}"
                            value="Previous #{productBean.pagination.pageSize}"
                            rendered="#{productBean.pagination.hasPreviousPage}"/>

@@ -25,6 +25,8 @@ public class ClientController {
     return productRepo.getAllProducts();
   }
 
+  public List<String> getAllCategories() {return productRepo.getCategories();}
+
   public List<Product> getFilteredProducts(String searchString) {
     return productRepo.getProductByNameOrDescription(searchString);
   }

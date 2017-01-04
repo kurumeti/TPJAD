@@ -20,7 +20,7 @@ public class CartBean {
 
   //When I did this, only God and I knew what I was doing.
   //Now, only God knows.
-  private Map<Product, Integer> cart;
+  private Map<Product, Integer> cart = new HashMap<>();
 
   public void addToCart(Product product, int quantity) {
     System.out.println(quantity);

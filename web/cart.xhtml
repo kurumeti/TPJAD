@@ -13,6 +13,7 @@
     <h:outputStylesheet library="css" name="cartPageStyle.css"/>
     <h:form>
         <h:commandButton action="searchPage" value="Products"/>
+        <h:commandButton action="index" value="Home"/>
     </h:form>
     <div class="divCart">
         <h:panelGroup rendered="#{cartBean.cart.size() > 0}">

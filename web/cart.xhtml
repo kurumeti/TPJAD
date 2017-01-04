@@ -54,6 +54,12 @@
                             </f:facet>
                             <h:outputText value="#{entry.value*entry.key.productPrice}"/>
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Remove product from cart
+                            </f:facet>
+                            <h:commandButton action="#{cartBean.remove(entry.key)}" value="X" styleClass="btn btn-primary"/>
+                        </h:column>
                     </h:dataTable>
                     <div class="customTop">
                         <h2>

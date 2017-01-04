@@ -54,4 +54,10 @@ public class CartBean {
   public List<Map.Entry<Product, Integer>> getCart() {
     return new ArrayList<>(cart.entrySet());
   }
+
+  public void remove(Product product) {
+    if(cart.get(product) != null) {
+      cart.remove(product);
+    }
+  }
 }

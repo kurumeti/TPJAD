@@ -6,54 +6,75 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Product Details</title>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>Product Details</title>
+    </f:facet>
+
+    <f:facet name="middle">
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="application/javascript"/>
+
+        <h:outputScript name="bootstrap/js/bootstrap.js"/>
+    </f:facet>
 </h:head>
 <h:body>
-    <h:outputStylesheet library="css" name="detailsPageStyle.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
     <h:form>
-        <h:commandButton action="cart" value="Cart"/>
-        <h:commandButton action="index" value="Home"/>
+        <h:commandButton action="cart" value="Cart" styleClass="btn btn-success customTop customLeft"/>
+        <h:commandButton action="searchPage" value="Home" styleClass="btn btn-info customTop customLeft"/>
     </h:form>
-    <h:link hreflang="google.com">Home</h:link>
-    <div class="divContainer">
-        <div class="divDetailContainer">
-            <div class="divImage">
-                <h:graphicImage value="productImages/#{detailsBean.image}"/>
-            </div>
-            <div class="detailHeader">
-                <h1>Product name</h1>
-                <p>
-                    <h:outputText value="#{detailsBean.name}"/>
-                </p>
-                <h1>Price</h1>
-                <p>
-                    <h:outputText value="#{detailsBean.price}"/>
-                </p>
-                <h1>Available Quantity</h1>
-                <p>
-                    <h:outputText value="#{detailsBean.availableQuantity}"/>
-                </p>
-                <div class="formCart">
+    <div class="container container-fluid panel panel-body">
+        <div class="col-lg-1 col-md-2"></div>
+        <div class="col-lg-10 col-md-6">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div>
+                    <h:graphicImage value="productImages/#{detailsBean.image}"/>
+                </div>
+                <div>
+                    <h1>Product name</h1>
+                    <p>
+                        <h:outputText value="#{detailsBean.name}"/>
+                    </p>
+                    <h1>Price (lei)</h1>
+                    <p>
+                        <h:outputText value="#{detailsBean.price}"/>
+                    </p>
+                    <h1>Available Quantity</h1>
+                    <p>
+                        <h:outputText value="#{detailsBean.availableQuantity}"/>
+                    </p>
+                    <br></br>
                     <h:form>
-                        <h2>Order Product:</h2>
-                        <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"/>
-                        <h:commandButton action="#{cartBean.addToCart(detailsBean.getProduct(), detailsBean.quantity)}"
-                                         value="Add to cart">
+                        <div class="form-group">
+                            <h2>Order Product:</h2>
+                            <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"
+                                         styleClass="form-control"/>
+                        </div>
+                        <h:commandButton
+                                action="#{cartBean.addToCart(detailsBean.getProduct(), detailsBean.quantity)}"
+                                value="Add to cart"
+                                styleClass="btn btn-primary">
                         </h:commandButton>
                     </h:form>
                 </div>
             </div>
-        </div>
 
-        <div class="detailBody">
-            <h1>Details</h1>
-            <h:dataTable value="#{detailsBean.details}" var="detail">
-                <h:column>
-                    <h:outputText value="#{detail}"/>
-                </h:column>
-            </h:dataTable>
+            <div class="col-lg-6 col-md-12 col-sm-12 panel panel-body">
+                <h1>Details</h1>
+                <h:dataTable value="#{detailsBean.details}" var="detail"
+                             styleClass="table table-responsive table-bordered">
+                    <h:column>
+                        <h:outputText value="#{detail}"/>
+                    </h:column>
+                </h:dataTable>
+            </div>
         </div>
-
+        <div class="col-lg-1 col-md-2"></div>
     </div>
 </h:body>
 </html>

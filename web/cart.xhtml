@@ -7,46 +7,66 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Shopping Cart</title>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>Shopping Cart</title>
+    </f:facet>
+
+    <f:facet name="middle">
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="application/javascript"/>
+
+        <h:outputScript name="bootstrap/js/bootstrap.js"/>
+    </f:facet>
 </h:head>
 <h:body>
-    <h:outputStylesheet library="css" name="cartPageStyle.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
     <h:form>
-        <h:commandButton action="searchPage" value="Products"/>
-        <h:commandButton action="index" value="Home"/>
+        <h:commandButton action="searchPage" value="Home" styleClass="btn btn-success customTop customLeft"/>
     </h:form>
-    <div class="divCart">
-        <h:panelGroup rendered="#{cartBean.cart.size() > 0}">
-            <h:form>
-                <h:dataTable value="#{cartBean.cart}" var="entry">
-                    <h:column>
-                        <f:facet name="header">
-                            Product Name
-                        </f:facet>
-                        <h:outputText value="#{entry.key.productName}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Quantity
-                        </f:facet>
-                        <h:outputText value="#{entry.value}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Price (lei)
-                        </f:facet>
-                        <h:outputText value="#{entry.value*entry.key.productPrice}"/>
-                    </h:column>
-                </h:dataTable>
-                <div class="divPrice">
-                    <h2>
-                        Total Price (lei): <h:outputText value="#{cartBean.totalPrice}"/>
-                    </h2>
-                </div>
-                <h:commandButton action="orderDetails" value="Complete order"
-                                 actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"/>
-            </h:form>
-        </h:panelGroup>
+    <div class="container container-fluid">
+        <div class="col-lg-1 col-md-2"></div>
+        <div class="col-lg-10 col-md-6 panel panel-body">
+            <h:panelGroup rendered="#{cartBean.cart.size() > 0}">
+                <h1>Ordered products</h1>
+                <h:form styleClass="customTop">
+                    <h:dataTable value="#{cartBean.cart}" var="entry"
+                                 styleClass="table table-bordered table-responsive">
+                        <h:column>
+                            <f:facet name="header">
+                                Product Name
+                            </f:facet>
+                            <h:outputText value="#{entry.key.productName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Quantity
+                            </f:facet>
+                            <h:outputText value="#{entry.value}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Price (lei)
+                            </f:facet>
+                            <h:outputText value="#{entry.value*entry.key.productPrice}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <div class="customTop">
+                        <h2>
+                            Total Price (lei): <h:outputText value="#{cartBean.totalPrice}"/>
+                        </h2>
+                    </div>
+                    <h:commandButton action="orderDetails" value="Finalize order"
+                                     actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"
+                                     styleClass="btn btn-primary customTop"/>
+                </h:form>
+            </h:panelGroup>
+        </div>
+        <div class="col-lg-1 col-md-2"></div>
     </div>
 </h:body>
 </html>

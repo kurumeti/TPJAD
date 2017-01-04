@@ -1,68 +1,35 @@
-body {
-    background-color: lightblue;
-    color: black;
+body{
+    background-image: url("#{resource['images/backgroung-image3.jpg']}");
+    background-repeat: repeat;
 }
 
-/*table style and table data display*/
-table {
-    border: solid;
-    color: black;
+.divFilterForm {
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 100%;
-}
-
-td, th {
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-}
-
-/*search form style*/
-.searchForm {
-    margin-bottom: 20px;
-    margin-inside: 20px;
-    margin-left: 10px;
-}
-
-.searchForm label {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 5px;
-}
-
-.searchForm input {
-    margin-top: 10px;
-}
-
-.searchForm select {
-    margin-top: 10px;
-}
-
-.searchForm input[type="submit"] {
-    display: block;
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.row {
-    display: block;
-    padding-bottom: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: cornsilk;
+    width: 50%;
     border-radius: 5px;
-}
-
-.divCenter {
-    margin-right: 50px;
-    margin-left: 50px;
-}
-
-.pager {
-    margin-top: 10px;
 }
 
 .pager a {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.customTop{
+    margin-top: 20px;
+}
+.customLeft{
+    margin-left: 10px;
+}
+
+tr {
+    font-size: large;
+}
+
+tr:nth-child(even) {
+    background-color: aliceblue;
+}
+
+tr:nth-child(odd) {
+    background-color: cornsilk;
 }

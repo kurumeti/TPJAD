@@ -7,29 +7,48 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/html">
 
 <h:head>
-    <title>Online Shop</title>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>Online Shop</title>
+    </f:facet>
+
+    <f:facet name="middle">
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="application/javascript"/>
+
+        <h:outputScript name="bootstrap/js/bootstrap.js"/>
+    </f:facet>
 </h:head>
 <h:body>
     <h:outputStylesheet library="css" name="style.css"/>
     <h:form>
-        <h:commandButton action="cart" value="Cart"/>
-        <h:commandButton action="index" value="Home"/>
+        <h:commandButton action="cart" value="Cart" styleClass="btn btn-success customTop customLeft"/>
     </h:form>
-    <div class="row">
-        <div class="divCenter">
+    <div class="container container-fluid customTop">
+        <div class="col-lg-1 col-md-2"></div>
+        <div class="panel panel-body col-lg-10 col-md-6">
             <h:form>
-                <div class="searchForm">
-                    <h:outputLabel>Keyword:</h:outputLabel>
-                    <h:inputText value="#{productBean.keyword}">search</h:inputText>
-                    <br/>
-                    <h:selectOneMenu value="#{productBean.category}">
-                        <h:outputLabel>Category:</h:outputLabel>
-                        <f:selectItems value="#{searchBean.getCategoryMap()}"/>
-                    </h:selectOneMenu>
-                    <h:commandButton action="#{productBean.search}" value="Apply filters"/>
+                <div class="divFilterForm">
+                    <div class="form-group">
+                        <h:outputLabel>Keyword:</h:outputLabel>
+                        <h:inputText value="#{productBean.keyword}" styleClass="form-control">search</h:inputText>
+                    </div>
+                    <div class="form-group">
+                        <h:selectOneMenu value="#{productBean.category}" styleClass="form-control">
+                            <h:outputLabel>Category:</h:outputLabel>
+                            <f:selectItems value="#{searchBean.getCategoryMap()}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <h:commandButton action="#{productBean.search}" value="Apply filters" styleClass="btn btn-info"/>
                 </div>
+                <br></br>
                 <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
-                    <h:dataTable value="#{productBean.dataModel}" var="product">
+                    <h:dataTable value="#{productBean.dataModel}" var="product"
+                                 styleClass="table table-bordered table-responsive">
                         <h:column>
                             <h:graphicImage value="productImages/#{product.productImageFileName}" width="50"
                                             height="50"/>
@@ -57,11 +76,11 @@
                         </h:column>
                     </h:dataTable>
                     <div class="pager">
-                        <h:outputText
-                                value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
                         <h:commandLink action="#{productBean.previous}"
                                        value="Previous"
                                        rendered="#{productBean.pagination.hasPreviousPage}"/>
+                        <h:outputText
+                                value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
                         <h:commandLink action="#{productBean.next}"
                                        value="Next"
                                        rendered="#{productBean.pagination.hasNextPage}"/>
@@ -69,6 +88,7 @@
                 </h:panelGroup>
             </h:form>
         </div>
+        <div class="col-lg-1 col-md-2"></div>
     </div>
 </h:body>
 </html>

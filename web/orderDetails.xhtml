@@ -6,35 +6,63 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Shopping Cart</title>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>Shopping Cart</title>
+    </f:facet>
+
+    <f:facet name="middle">
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="application/javascript"/>
+
+        <h:outputScript name="bootstrap/js/bootstrap.js"/>
+    </f:facet>
 </h:head>
 <h:body>
-    <h:outputStylesheet library="css" name="orderPageStyle.css"/>
-    <div class="divOrder">
-        <h1>Order details</h1>
-        <h3>Enter requested information to finalize order.</h3>
-        <f:view>
-            <h:form>
-                <div class="formComponent">
-                    <h:outputLabel value="Name"/>
-                    <h:inputText value="#{orderBean.name}"/>
-                </div>
-                <div class="formComponent">
-                    <h:outputLabel value="Address"/>
-                    <h:inputText value="#{orderBean.address}"/>
-                </div>
-                <div class="formComponent">
-                    <h:outputLabel value="Phone"/>
-                    <h:inputText value="#{orderBean.phone}"/>
-                </div>
-                <div class="formComponent">
-                    <h:outputLabel value="E-mail"/>
-                    <h:inputText value="#{orderBean.email}"/>
-                </div>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:form>
+        <h:commandButton action="cart" value="Cart" styleClass="btn btn-success customTop customLeft"/>
+        <h:commandButton action="searchPage" value="Home" styleClass="btn btn-info customTop customLeft"/>
+    </h:form>
+    <div class="container container-fluid">
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-6 col-md-6 panel">
+            <div class="panel-title">
+                <h1>Order details</h1>
+                <h3><i class="glyphicon glyphicon-asterisk"></i> Enter requested information to finalize order.</h3>
+            </div>
 
-                <h:commandButton actionListener="${orderBean.completeOrder()}" action="searchPage" value="Send"/>
-            </h:form>
-        </f:view>
+            <div class="panel-body">
+                <f:view>
+                    <h:form>
+                        <div class="form-group">
+                            <h:outputLabel value="Name"/>
+                            <h:inputText value="#{orderBean.name}" styleClass="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Address"/>
+                            <h:inputText value="#{orderBean.address}" styleClass="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Phone"/>
+                            <h:inputText value="#{orderBean.phone}" styleClass="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="E-mail"/>
+                            <h:inputText value="#{orderBean.email}" styleClass="form-control"/>
+                        </div>
+
+                        <h:commandButton actionListener="${orderBean.completeOrder()}" action="searchPage" value="Send"
+                                         styleClass="btn btn-primary customTop"/>
+                    </h:form>
+                </f:view>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2"></div>
     </div>
 </h:body>
 </html>

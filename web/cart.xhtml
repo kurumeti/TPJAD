@@ -11,7 +11,9 @@
 </h:head>
 <h:body>
     <h:outputStylesheet library="css" name="cartPageStyle.css"/>
-    <h:commandButton action="searchPage" value="Products"/>
+    <h:form>
+        <h:commandButton action="searchPage" value="Products"/>
+    </h:form>
     <div class="divCart">
         <h:form>
             <h:dataTable value="#{cartBean.cart}" var="entry">

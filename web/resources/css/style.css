@@ -1,0 +1,68 @@
+body {
+    background-color: lightblue;
+    color: black;
+}
+
+/*table style and table data display*/
+table {
+    border: solid;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+td, th {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+/*search form style*/
+.searchForm {
+    margin-bottom: 20px;
+    margin-inside: 20px;
+    margin-left: 10px;
+}
+
+.searchForm label {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.searchForm input {
+    margin-top: 10px;
+}
+
+.searchForm select {
+    margin-top: 10px;
+}
+
+.searchForm input[type="submit"] {
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.row {
+    display: block;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: cornsilk;
+    border-radius: 5px;
+}
+
+.divCenter {
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.pager {
+    margin-top: 10px;
+}
+
+.pager a {
+    margin-left: 5px;
+    margin-right: 5px;
+}

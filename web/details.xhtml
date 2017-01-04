@@ -6,29 +6,51 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <title>Details</title>
+    <title>Product Details</title>
 </h:head>
-<h:body bgcolor="white">
-    <h:graphicImage value="productImages/#{detailsBean.image}"/>
-    <br/>
-    <h1>Product name</h1>
-    <h:outputText value="#{detailsBean.name}"/>
-    <br/>
-    <h1>Details</h1>
-    <ui:repeat value="#{detailsBean.details}" var="detail">
-        <h:outputText value="#{detail}"/><br/>
-    </ui:repeat>
-    <br/>
-    <h1>Price</h1>
-    <h:outputText value="#{detailsBean.price}"/>
-    <br/>
-    <h:form>
+<h:body>
+    <h:outputStylesheet library="css" name="detailsPageStyle.css"/>
+    <h:commandButton action="cart" value="Cart"/>
+    <h:link hreflang="google.com">Home</h:link>
+    <div class="divContainer">
+        <div class="divDetailContainer">
+            <div class="divImage">
+                <h:graphicImage value="productImages/#{detailsBean.image}"/>
+            </div>
+            <div class="detailHeader">
+                <h1>Product name</h1>
+                <p>
+                    <h:outputText value="#{detailsBean.name}"/>
+                </p>
+                <h1>Price</h1>
+                <p>
+                    <h:outputText value="#{detailsBean.price}"/>
+                </p>
+                <h1>Available Quantity</h1>
+                <p>
+                    <h:outputText value="#{detailsBean.availableQuantity}"/>
+                </p>
+                <div class="formCart">
+                    <h:form>
+                        <h2>Order Product:</h2>
+                        <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"/>
+                        <h:commandButton action="#{cartBean.addToCart(detailsBean.getProduct(), detailsBean.quantity)}"
+                                         value="Add to cart">
+                        </h:commandButton>
+                    </h:form>
+                </div>
+            </div>
+        </div>
 
-        <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"/>
-        <h:commandButton action="#{cartBean.addToCart(detailsBean.getProduct(), detailsBean.quantity)}"
-                         value="Add to cart">
-        </h:commandButton>
-        <h:commandButton action="cart" value="Cart"/>
-    </h:form>
+        <div class="detailBody">
+            <h1>Details</h1>
+            <h:dataTable value="#{detailsBean.details}" var="detail">
+                <h:column>
+                    <h:outputText value="#{detail}"/>
+                </h:column>
+            </h:dataTable>
+        </div>
+
+    </div>
 </h:body>
 </html>

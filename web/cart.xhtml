@@ -7,32 +7,41 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>JSF 2.0 Hello World</title>
+    <title>Shopping Cart</title>
 </h:head>
-<h:body bgcolor="white">
-    <h:form>
-        <h:dataTable value="#{cartBean.cart}" var="entry">
-            <h:column>
-                <f:facet name="header">
-                    Product Name
-                </f:facet>
-                <h:outputText value="#{entry.key.productName}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Quantity
-                </f:facet>
-                <h:outputText value="#{entry.value}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    Price
-                </f:facet>
-                <h:outputText value="#{entry.value*entry.key.productPrice}"/>
-            </h:column>
-        </h:dataTable>
-        <h:outputLabel value="#{cartBean.totalPrice}"/>
-        <h:commandButton action="orderDetails" value="Complete order" actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"/>
-    </h:form>
+<h:body>
+    <h:outputStylesheet library="css" name="cartPageStyle.css"/>
+    <h:commandButton action="searchPage" value="Products"/>
+    <div class="divCart">
+        <h:form>
+            <h:dataTable value="#{cartBean.cart}" var="entry">
+                <h:column>
+                    <f:facet name="header">
+                        Product Name
+                    </f:facet>
+                    <h:outputText value="#{entry.key.productName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Quantity
+                    </f:facet>
+                    <h:outputText value="#{entry.value}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Price (lei)
+                    </f:facet>
+                    <h:outputText value="#{entry.value*entry.key.productPrice}"/>
+                </h:column>
+            </h:dataTable>
+            <div class="divPrice">
+                <h2>
+                    Total Price (lei): <h:outputText value="#{cartBean.totalPrice}"/>
+                </h2>
+            </div>
+            <h:commandButton action="orderDetails" value="Complete order"
+                             actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"/>
+        </h:form>
+    </div>
 </h:body>
 </html>

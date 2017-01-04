@@ -7,57 +7,65 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/html">
 
 <h:head>
-    <title>JSF 2.0 Hello World</title>
+    <title>Online Shop</title>
 </h:head>
-<h:body bgcolor="white">
-    <h:form>
-        <h:outputLabel>Keyword:</h:outputLabel>
-        <h:inputText value="#{productBean.keyword}">search</h:inputText>
-        <br/>
-        <h:selectOneMenu value="#{productBean.category}">
-            Category:
-            <f:selectItems value="#{searchBean.getCategoryMap()}"/>
-        </h:selectOneMenu>
-
-        <h:commandButton action="#{productBean.search}" value="Apply filters"/>
-        <h:commandButton action="cart" value="Cart"/>
-
-        <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
-            <h:dataTable value="#{productBean.dataModel}" var="product">
-                <h:column>
-                    <h:graphicImage value="productImages/#{product.productImageFileName}" width="50" height="50"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        Product name
-                    </f:facet>
-                    <h:commandLink actionListener="#{productBean.clickListener}" action="details">
-                        <f:param name="id" value="#{product.productId}"/>
-                        <h:outputText value="#{product.productName}"/>
-                    </h:commandLink>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        Product price
-                    </f:facet>
-                    <h:outputText value="#{product.productPrice}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        Available quantity
-                    </f:facet>
-                    <h:outputText value="#{product.productQuantity}"/>
-                </h:column>
-            </h:dataTable>
-            <h:outputText
-                    value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
-            <h:commandLink action="#{productBean.previous}"
-                           value="Previous #{productBean.pagination.pageSize}"
-                           rendered="#{productBean.pagination.hasPreviousPage}"/>
-            <h:commandLink action="#{productBean.next}"
-                           value="Next #{productBean.pagination.pageSize}"
-                           rendered="#{productBean.pagination.hasNextPage}"/>
-        </h:panelGroup>
-    </h:form>
+<h:body>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:commandButton action="cart" value="Cart"/>
+    <div class="row">
+        <div class="divCenter">
+            <h:form>
+                <div class="searchForm">
+                    <h:outputLabel>Keyword:</h:outputLabel>
+                    <h:inputText value="#{productBean.keyword}">search</h:inputText>
+                    <br/>
+                    <h:selectOneMenu value="#{productBean.category}">
+                        <h:outputLabel>Category:</h:outputLabel>
+                        <f:selectItems value="#{searchBean.getCategoryMap()}"/>
+                    </h:selectOneMenu>
+                    <h:commandButton action="#{productBean.search}" value="Apply filters"/>
+                </div>
+                <h:panelGroup rendered="#{productBean.dataModel.rowCount > 0}">
+                    <h:dataTable value="#{productBean.dataModel}" var="product">
+                        <h:column>
+                            <h:graphicImage value="productImages/#{product.productImageFileName}" width="50"
+                                            height="50"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Product name
+                            </f:facet>
+                            <h:commandLink actionListener="#{productBean.clickListener}" action="details">
+                                <f:param name="id" value="#{product.productId}"/>
+                                <h:outputText value="#{product.productName}"/>
+                            </h:commandLink>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Product price (lei)
+                            </f:facet>
+                            <h:outputText value="#{product.productPrice}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Available quantity
+                            </f:facet>
+                            <h:outputText value="#{product.productQuantity}"/>
+                        </h:column>
+                    </h:dataTable>
+                    <div class="pager">
+                        <h:outputText
+                                value="#{productBean.pagination.pageItemIndex + 1}..#{productBean.pagination.pageLastItem + 1}/#{productBean.pagination.itemsCount}"/>
+                        <h:commandLink action="#{productBean.previous}"
+                                       value="Previous"
+                                       rendered="#{productBean.pagination.hasPreviousPage}"/>
+                        <h:commandLink action="#{productBean.next}"
+                                       value="Next"
+                                       rendered="#{productBean.pagination.hasNextPage}"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>

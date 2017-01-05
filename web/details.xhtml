@@ -48,7 +48,7 @@
                     <p>
                         <h:outputText value="#{detailsBean.availableQuantity}"/>
                     </p>
-                    <br></br>
+                    <br/>
                     <h:form>
                         <div class="form-group">
                             <h2>Order Product:</h2>
@@ -60,6 +60,10 @@
                                 value="Add to cart"
                                 styleClass="btn btn-primary">
                         </h:commandButton>
+                        <br/>
+                        <h:panelGroup rendered="#{!cartBean.isValidQuantity(detailsBean.getProduct(), detailsBean.quantity)}">
+                            <h:outputText value="*Quantity cannot be greater than the available quantity."/>
+                        </h:panelGroup>
                     </h:form>
                 </div>
             </div>

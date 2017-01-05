@@ -57,7 +57,7 @@
                             <f:facet name="header">
                                 Product name
                             </f:facet>
-                            <h:commandLink actionListener="#{productBean.clickListener}" action="details">
+                            <h:commandLink actionListener="#{productBean.clickListener(detailsBean)}" action="details">
                                 <f:param name="id" value="#{product.productId}"/>
                                 <h:outputText value="#{product.productName}"/>
                             </h:commandLink>

@@ -28,10 +28,20 @@ public class CartBean {
       cart = new HashMap<>();
     }
 
+    if(isValidQuantity(product, quantity)) {
+      if (cart.get(product) != null) {
+        cart.put(product, quantity + cart.get(product));
+      } else {
+        cart.put(product, quantity);
+      }
+    }
+  }
+
+  public boolean isValidQuantity(Product product, int quantity) {
     if(cart.get(product) != null) {
-      cart.put(product, quantity + cart.get(product));
+      return quantity + cart.get(product) <= product.getProductQuantity();
     } else {
-      cart.put(product, quantity);
+      return quantity <= product.getProductQuantity();
     }
   }
 

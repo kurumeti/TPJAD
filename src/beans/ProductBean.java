@@ -103,11 +103,11 @@ public class ProductBean implements Serializable {
     return dataModel;
   }
 
-  public void clickListener() {
+  public void clickListener(DetailsBean detailsBean) {
     int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
     for (Product p : products) {
       if (p.getProductId() == id) {
-        DetailsBean.setProduct(p);
+        detailsBean.setProduct(p);
       }
     }
   }

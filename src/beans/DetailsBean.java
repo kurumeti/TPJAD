@@ -15,43 +15,46 @@ import java.util.List;
 @ManagedBean(name = "detailsBean")
 @SessionScoped
 public class DetailsBean {
-    static Product product;
-    private List<String> order;
-    private int quantity;
+  private Product product;
+  private List<String> order;
+  private int quantity;
 
-    public static Product getProduct() {
-        return product;
-    }
+  public Product getProduct() {
+    return product;
+  }
 
-    public static void setProduct(Product product) {
-        DetailsBean.product = product;
-    }
+  public void setProduct(Product product) {
+    this.product = product;
+    this.quantity = 0;
+  }
 
-    public String getName() {
-        return product.getProductName();
-    }
+  public String getName() {
+    return product.getProductName();
+  }
 
-    public String getImage() {
-        return product.getProductImageFileName();
-    }
+  public String getImage() {
+    return product.getProductImageFileName();
+  }
 
-    public float getAvailableQuantity() { return product.getProductQuantity(); }
+  public float getAvailableQuantity() {
+    return product.getProductQuantity();
+  }
 
-    public List<String> getDetails() {
-        List<String> details = new ArrayList<>();
-        Collections.addAll(details, product.getProductDescription().split(";"));
-        return details;
-    }
+  public List<String> getDetails() {
+    List<String> details = new ArrayList<>();
+    Collections.addAll(details, product.getProductDescription().split(";"));
+    return details;
+  }
 
-    public float getPrice() {
-        return product.getProductPrice();
-    }
+  public float getPrice() {
+    return product.getProductPrice();
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 }

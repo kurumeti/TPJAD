@@ -56,9 +56,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                Remove product from cart
+                                Remove
                             </f:facet>
-                            <h:commandButton action="#{cartBean.remove(entry.key)}" value="X" styleClass="btn btn-primary"/>
+                            <h:commandButton action="#{cartBean.remove(entry.key)}" value="x" styleClass="btn btn-danger"/>
                         </h:column>
                     </h:dataTable>
                     <div class="customTop">
@@ -71,7 +71,7 @@
                                      styleClass="btn btn-primary customTop"/>
                     <h:commandButton action="searchPage" value="Cancel order"
                                      actionListener="#{orderBean.cancelOrder()}"
-                                     styleClass="btn btn-primary customTop"/>
+                                     styleClass="btn btn-danger customTop customLeft"/>
                 </h:form>
             </h:panelGroup>
         </div>

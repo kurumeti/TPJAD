@@ -36,7 +36,7 @@ public class CartBean {
         cart.put(product, quantity);
       }
     } else {
-      FacesContext.getCurrentInstance().addMessage("addForm:quantity", new FacesMessage("Quantity must be an integer between 0 and the maximum available quantity displayed in the page."));
+      FacesContext.getCurrentInstance().addMessage("addForm:quantity", new FacesMessage("Quantity must be an integer between 1 and the maximum available quantity displayed in the page."));
     }
   }
 

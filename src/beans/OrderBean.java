@@ -85,4 +85,8 @@ public class OrderBean {
     this.order = order;
     this.totalPrice = totalPrice;
   }
+
+  public void cancelOrder() {
+    FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+  }
 }

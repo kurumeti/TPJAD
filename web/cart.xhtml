@@ -69,6 +69,9 @@
                     <h:commandButton action="orderDetails" value="Finalize order"
                                      actionListener="#{orderBean.clickListener(cartBean.order, cartBean.totalPrice)}"
                                      styleClass="btn btn-primary customTop"/>
+                    <h:commandButton action="searchPage" value="Cancel order"
+                                     actionListener="#{orderBean.cancelOrder()}"
+                                     styleClass="btn btn-primary customTop"/>
                 </h:form>
             </h:panelGroup>
         </div>

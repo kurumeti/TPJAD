@@ -58,6 +58,8 @@
 
                         <h:commandButton actionListener="${orderBean.completeOrder()}" action="searchPage" value="Send"
                                          styleClass="btn btn-primary customTop"/>
+                        <h:commandButton actionListener="${orderBean.cancelOrder()}" action="searchPage" value="Cancel order"
+                                         styleClass="btn btn-primary customTop"/>
                     </h:form>
                 </f:view>
             </div>

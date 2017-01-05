@@ -6,6 +6,7 @@ import repo.OrderRepo;
 import repo.ProductRepo;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -34,6 +35,8 @@ public class CartBean {
       } else {
         cart.put(product, quantity);
       }
+    } else {
+      FacesContext.getCurrentInstance().addMessage("addForm:quantity", new FacesMessage("Quantity cannot be greater than the available quantity."));
     }
   }
 

@@ -82,6 +82,10 @@ public class ProductBean implements Serializable {
     dataModel = null;
   }
 
+  private void recreatePagination() {
+    pagination = null;
+  }
+
   public void next() {
     getPagination().nextPage();
     recreateModel();
@@ -117,6 +121,7 @@ public class ProductBean implements Serializable {
     } else {
       products = controller.getFilteredProducts(keyword);
     }
+    recreatePagination();
     recreateModel();
   }
 }

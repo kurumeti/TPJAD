@@ -17,111 +17,114 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ManagedBean(name = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
-  @EJB
-  private ProductRepo productRepo;
-  @EJB
-  private OrderRepo orderRepo;
+    @EJB
+    private ProductRepo productRepo;
+    @EJB
+    private OrderRepo orderRepo;
 
-  private List<Product> products = null;
-  private ClientController controller;
+    private List<Product> products = null;
+    private ClientController controller;
 
-  private PaginationHelper pagination;
-  private DataModel dataModel = null;
+    private PaginationHelper pagination;
+    private DataModel dataModel = null;
 
-  private String keyword;
-  private String category;
+    private String keyword;
+    private String category;
 
-  public String getKeyword() {
-    return keyword;
-  }
-
-  public void setKeyword(String keyword) {
-    this.keyword = keyword;
-  }
-
-  public String getCategory() {
-    return category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
-  }
-
-  public PaginationHelper getPagination() {
-    if(controller == null) {
-      controller = new ClientController(productRepo, orderRepo);
+    public String getKeyword() {
+        return keyword;
     }
 
-    if(products == null) {
-      products = controller.getAllProducts();
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
-    if (pagination == null) {
+    public String getCategory() {
+        return category;
+    }
 
-      pagination = new PaginationHelper(10) {
-        @Override
-        public int getItemsCount() {
-          return products.size();
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public PaginationHelper getPagination() {
+        if (controller == null) {
+            controller = new ClientController(productRepo, orderRepo);
         }
 
-        @Override
-        public DataModel<Product> createPageDataModel() {
-          System.out.println(getPageItemIndex());
-          return new ListDataModel<>(products.subList(getPageItemIndex(), Math.min(getPageItemIndex() + getPageSize(), products.size())));
+        if (products == null) {
+            products = controller.getAllProducts();
         }
-      };
+
+        if (pagination == null) {
+
+            pagination = new PaginationHelper(10) {
+                @Override
+                public int getItemsCount() {
+                    return products.size();
+                }
+
+                @Override
+                public DataModel<Product> createPageDataModel() {
+                    System.out.println(getPageItemIndex());
+                    return new ListDataModel<>(products.subList(getPageItemIndex(), Math.min(getPageItemIndex() + getPageSize(), products.size())));
+                }
+            };
+        }
+        return pagination;
     }
-    return pagination;
-  }
 
-  private void recreateModel() {
-    dataModel = null;
-  }
-
-  private void recreatePagination() {
-    pagination = null;
-  }
-
-  public void next() {
-    getPagination().nextPage();
-    recreateModel();
-  }
-
-  public void previous() {
-    getPagination().previousPage();
-    recreateModel();
-  }
-
-  public DataModel getDataModel() {
-    if (dataModel == null) {
-      dataModel = getPagination().createPageDataModel();
+    private void recreateModel() {
+        dataModel = null;
     }
-    return dataModel;
-  }
 
-  public void clickListener(DetailsBean detailsBean) {
-    int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
-    for (Product p : products) {
-      if (p.getProductId() == id) {
-        detailsBean.setProduct(p);
-      }
+    private void recreatePagination() {
+        pagination = null;
     }
-  }
 
-  public void search() {
-    //TODO use keyword and category to retrieve products
-    //TODO special category "All", for all categories
-    //TODO empty keyword means do not filter by keyword
-    if("".equals(keyword)) {
-      products = controller.getAllProducts();
-    } else {
-      products = controller.getFilteredProducts(keyword);
+    public void next() {
+        getPagination().nextPage();
+        recreateModel();
     }
-    recreatePagination();
-    recreateModel();
-  }
+
+    public void previous() {
+        getPagination().previousPage();
+        recreateModel();
+    }
+
+    public DataModel getDataModel() {
+        if (dataModel == null) {
+            dataModel = getPagination().createPageDataModel();
+        }
+        return dataModel;
+    }
+
+    public void clickListener(DetailsBean detailsBean) {
+        int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id"));
+        for (Product p : products) {
+            if (p.getProductId() == id) {
+                detailsBean.setProduct(p);
+            }
+        }
+    }
+
+    public void search() {
+        if ("".equals(keyword)) {
+            products = controller.getAllProducts();
+        } else {
+            products = controller.getFilteredProducts(keyword);
+        }
+        if (category.equals("All")) ;//do nothing
+        else {
+            List<Product> tmp = products.stream().filter(x -> x.getProductCategory().equals(category)).collect(Collectors.toList());
+            products = tmp;
+        }
+        recreatePagination();
+        recreateModel();
+    }
 }

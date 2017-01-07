@@ -2,17 +2,14 @@ package model;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.Flash;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "Products")
 public class Product {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int productId;
   private String productName;
   private String productDescription;

@@ -33,4 +33,54 @@ public class OrderRepo {
       throw new Exception(ex.getMessage());
     }
   }
+
+  public Order getLastOrder() throws Exception {
+    Order rez = null;
+    try {
+      TypedQuery<Order> query = entityManager.createQuery("SELECT o from Order o order by o.orderDate desc", Order.class);
+      rez = query.setMaxResults(1).getResultList().get(0);
+    } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
+      throw new Exception(ex.getMessage());
+    }
+    return rez;
+  }
+
+  public ProductToOrder getLastProductToOrder() throws Exception {
+    ProductToOrder rez = null;
+    try {
+      TypedQuery<ProductToOrder> query = entityManager.createQuery("SELECT pto from ProductToOrder pto order by pto.ptoId desc ", ProductToOrder.class);
+      rez = query.setMaxResults(1).getResultList().get(0);
+    } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
+      throw new Exception(ex.getMessage());
+    }
+    return rez;
+  }
+
+  public void deleteOrder(int orderId) throws Exception {
+    try {
+      Order order = getOrderById(orderId);
+      entityManager.remove(order);
+    } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
+      throw new Exception(ex.getMessage());
+    }
+  }
+
+  private Order getOrderById(int orderId) {
+    TypedQuery<Order> query = entityManager.createQuery("SELECT o from Order o where o.orderId = " + orderId, Order.class);
+    return query.getSingleResult();
+  }
+
+  public void deleteProductToOrder(int productToOrderId) throws Exception {
+    try {
+      ProductToOrder productToOrder = getProductToOrderById(productToOrderId);
+      entityManager.remove(productToOrder);
+    } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
+      throw new Exception(ex.getMessage());
+    }
+  }
+
+  private ProductToOrder getProductToOrderById(int productToOrderId) {
+    TypedQuery<ProductToOrder> query = entityManager.createQuery("SELECT pto from ProductToOrder pto where pto.ptoId = " + productToOrderId, ProductToOrder.class);
+    return query.getSingleResult();
+  }
 }

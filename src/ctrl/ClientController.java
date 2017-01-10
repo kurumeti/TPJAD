@@ -65,4 +65,18 @@ public class ClientController {
       throw new Exception("Incorrect order arguments!");
     }
   }
+
+  public void revertLastOrder() throws Exception{
+    try {
+      Order order = orderRepo.getLastOrder();
+      ProductToOrder productToOrder = orderRepo.getLastProductToOrder();
+      Product p = productRepo.getProductById(productToOrder.getProductId());
+      p.setProductQuantity(p.getProductQuantity() + productToOrder.getProductQuantity());
+      productRepo.updateProduct(p);
+      orderRepo.deleteOrder(order.getOrderId());
+      orderRepo.deleteProductToOrder(productToOrder.getPtoId());
+    } catch (Exception ex) {
+      throw new Exception("Incorrect order arguments!");
+    }
+  }
 }

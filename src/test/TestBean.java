@@ -1,7 +1,6 @@
 package test;
 
 import beans.CartBean;
-import beans.OrderBean;
 import ctrl.ClientController;
 import model.Order;
 import model.Product;
@@ -9,7 +8,6 @@ import model.TestResult;
 import repo.OrderRepo;
 import repo.ProductRepo;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
@@ -46,7 +44,7 @@ public class TestBean {
     // Calls ctrl to return all the products from the db.
     // test passed if: all the products have quantity > 0
     private String testGetAllProducts() {
-        initCtrl();
+        initResources();
         String rez = "";
         try {
             List<Product> list = controller.getAllProducts();
@@ -70,7 +68,7 @@ public class TestBean {
     // test case 2: filter by an existing keyword => test passed if all the products contain the given keyword
     // test case 3: filter by a nonexistent keyword => test passed if nothing is returned
     private String testGetFilteredProducts(String keyword) {
-        initCtrl();
+        initResources();
         String rez = "";
         try {
             List<Product> list = controller.getFilteredProducts(keyword);
@@ -114,7 +112,7 @@ public class TestBean {
     // test passed if categories list has a size of 6
     private String testGetAllCategories() {
         String rez = "";
-        initCtrl();
+        initResources();
         try {
             List<String> list = controller.getAllCategories();
             if (list != null && list.size() > 0) {
@@ -192,7 +190,7 @@ public class TestBean {
     // test case 1: all the user information given is correct => test passed and insert and update operations are completed correctly
     // test case 2: string values are either null, or the floating point value is null or a char=> test fails and the info is requested again
     private String testSaveOrder(String productId, String quantity, Order o) {
-        initCtrl();
+        initResources();
         String rez = "Pass";
         try {
             controller.saveOrder(Collections.singletonList(productId + "#" + quantity), o);

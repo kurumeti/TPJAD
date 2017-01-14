@@ -3,17 +3,21 @@ package repo;
 import model.Product;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TransactionRequiredException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
 public class ProductRepo {
-  @PersistenceContext(unitName = "mysql")
+//  @PersistenceContext(unitName = "mysql")
   private EntityManager entityManager;
+
+  public ProductRepo() {
+  }
+
+  public ProductRepo(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
   //gets all the products in the db that have a quantity > 0
   public List<Product> getAllProducts() {
@@ -55,7 +59,11 @@ public class ProductRepo {
   //updates the given product when an order is finalized by reducing the available quantity
   public Product updateProduct(Product p) throws Exception {
     try {
-      return entityManager.merge(p);
+      EntityTransaction t = entityManager.getTransaction();
+      t.begin();
+      Product rez = entityManager.merge(p);
+      t.commit();
+      return rez;
     } catch (IllegalArgumentException | TransactionRequiredException ex) {
       throw new Exception(ex.getMessage());
     }

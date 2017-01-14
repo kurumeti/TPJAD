@@ -9,16 +9,26 @@ import javax.persistence.*;
 
 @Stateless
 public class OrderRepo {
-  @PersistenceContext(unitName = "mysql")
+//  @PersistenceContext(unitName = "mysql")
   private EntityManager entityManager;
   private OrderValidator orderValidator = new OrderValidator();
+
+  public OrderRepo() {
+  }
+
+  public OrderRepo(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
   public Order addOrder(Order o) throws Exception {
     try {
       if (orderValidator.validate(o)) {
+        EntityTransaction t = entityManager.getTransaction();
+        t.begin();
         entityManager.persist(o);
         //flush needed to get the new id
         entityManager.flush();
+        t.commit();
         return o;
       } else throw new Exception("Incorrect order arguments!");
     } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
@@ -28,7 +38,11 @@ public class OrderRepo {
 
   public void addProductToOrder(ProductToOrder pto) throws Exception {
     try {
+      EntityTransaction t = entityManager.getTransaction();
+      t.begin();
       entityManager.persist(pto);
+      entityManager.flush();
+      t.commit();
     } catch (EntityExistsException | IllegalArgumentException | TransactionRequiredException ex) {
       throw new Exception(ex.getMessage());
     }

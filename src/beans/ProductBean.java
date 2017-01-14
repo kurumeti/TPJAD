@@ -13,6 +13,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,9 +25,9 @@ import java.util.stream.Collectors;
 @ManagedBean(name = "productBean")
 @SessionScoped
 public class ProductBean implements Serializable {
-  @EJB
+  private EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysql");
+  private EntityManager entityManager;
   private ProductRepo productRepo;
-  @EJB
   private OrderRepo orderRepo;
 
   private List<Product> products = null;
@@ -53,6 +56,15 @@ public class ProductBean implements Serializable {
   }
 
   public PaginationHelper getPagination() {
+    if (entityManager == null) {
+      entityManager = factory.createEntityManager();
+    }
+    if (productRepo == null) {
+      productRepo = new ProductRepo(entityManager);
+    }
+    if (orderRepo == null) {
+      orderRepo = new OrderRepo(entityManager);
+    }
     if (controller == null) {
       controller = new ClientController(productRepo, orderRepo);
     }

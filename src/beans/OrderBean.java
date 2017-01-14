@@ -10,6 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +26,9 @@ public class OrderBean {
   private List<String> order;
   private float totalPrice;
 
-  @EJB
+  private EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysql");
+  private EntityManager entityManager;
   private ProductRepo productRepo;
-  @EJB
   private OrderRepo orderRepo;
 
   private ClientController controller;
@@ -71,7 +74,16 @@ public class OrderBean {
   }
 
   public void completeOrder() throws Exception {
-    if(controller == null) {
+    if (entityManager == null) {
+      entityManager = factory.createEntityManager();
+    }
+    if (productRepo == null) {
+      productRepo = new ProductRepo(entityManager);
+    }
+    if (orderRepo == null) {
+      orderRepo = new OrderRepo(entityManager);
+    }
+    if (controller == null) {
       controller = new ClientController(productRepo, orderRepo);
     }
 

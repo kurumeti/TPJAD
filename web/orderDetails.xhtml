@@ -38,27 +38,39 @@
 
             <div class="panel-body">
                 <f:view>
-                    <h:form>
+                    <h:form id="orderForm">
                         <div class="form-group">
+                            <div class="customTop customBottom">
+                                <h:message for="clientName" styleClass="alert-danger"/>
+                            </div>
                             <h:outputLabel value="Name"/>
-                            <h:inputText value="#{orderBean.name}" styleClass="form-control"/>
+                            <h:inputText value="#{orderBean.name}" styleClass="form-control" id="clientName"/>
                         </div>
                         <div class="form-group">
+                            <div class="customTop customBottom">
+                                <h:message for="clientAddress" styleClass="alert-danger"/>
+                            </div>
                             <h:outputLabel value="Address"/>
-                            <h:inputText value="#{orderBean.address}" styleClass="form-control"/>
+                            <h:inputText value="#{orderBean.address}" styleClass="form-control" id="clientAddress"/>
                         </div>
-                        <div class="form-group">
-                            <h:outputLabel value="Phone"/>
-                            <h:inputText value="#{orderBean.phone}" styleClass="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <h:outputLabel value="E-mail"/>
-                            <h:inputText value="#{orderBean.email}" styleClass="form-control"/>
-                        </div>
-
-                        <h:commandButton actionListener="${orderBean.completeOrder()}" action="searchPage" value="Send"
+                        <!--<div class="form-group">-->
+                            <!--<div class="customTop customBottom">-->
+                                <!--<h:message for="clientPhone" styleClass="alert-danger"/>-->
+                            <!--</div>-->
+                            <!--<h:outputLabel value="Phone"/>-->
+                            <!--<h:inputText value="#{orderBean.phone}" styleClass="form-control" id="clientPhone"/>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="customTop customBottom">-->
+                                <!--<h:message for="clientEmail" styleClass="alert-danger"/>-->
+                            <!--</div>-->
+                            <!--<h:outputLabel value="E-mail"/>-->
+                            <!--<h:inputText value="#{orderBean.email}" styleClass="form-control" id="clientEmail"/>-->
+                        <!--</div>-->
+                        <h:commandButton actionListener="${orderBean.completeOrder()}" value="Send"
                                          styleClass="btn btn-primary customTop"/>
-                        <h:commandButton actionListener="${orderBean.cancelOrder()}" action="searchPage" value="Cancel order"
+                        <h:commandButton actionListener="${orderBean.cancelOrder()}" action="cart"
+                                         value="Cancel order"
                                          styleClass="btn btn-danger customTop customLeft"/>
                     </h:form>
                 </f:view>

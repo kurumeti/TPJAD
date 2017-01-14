@@ -50,6 +50,9 @@
                     </p>
                     <br/>
                     <h:form id="addForm">
+                        <div class="customTop customBottom">
+                            <h:message for="quantity" styleClass="alert-danger"/>
+                        </div>
                         <div class="form-group">
                             <h2>Order Product:</h2>
                             <h:inputText id="quantity" label="Quantity" value="#{detailsBean.quantity}"
@@ -60,8 +63,6 @@
                                 value="Add to cart"
                                 styleClass="btn btn-primary">
                         </h:commandButton>
-                        <br/>
-                        <h:message for="quantity"/>
                     </h:form>
                 </div>
             </div>

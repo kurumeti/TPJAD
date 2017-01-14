@@ -18,6 +18,9 @@ body{
 .customTop{
     margin-top: 20px;
 }
+.customBottom{
+    margin-bottom: 20px;
+}
 .customLeft{
     margin-left: 10px;
 }

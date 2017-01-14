@@ -12,24 +12,36 @@ import repo.ProductRepo;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.*;
 
 @ManagedBean(name = "testBean")
 @SessionScoped
 public class TestBean {
-    @EJB
-    private ProductRepo productRepo;
-    @EJB
-    private OrderRepo orderRepo;
+  private EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysql_test");
+  private EntityManager entityManager;
+  private ProductRepo productRepo;
+  private OrderRepo orderRepo;
 
     private ClientController controller;
     private List<TestResult> testResults;
 
-    private void initCtrl() {
-        if (controller == null) {
-            controller = new ClientController(productRepo, orderRepo);
-        }
+  private void initResources() {
+    if (entityManager == null) {
+      entityManager = factory.createEntityManager();
     }
+    if (productRepo == null) {
+      productRepo = new ProductRepo(entityManager);
+    }
+    if (orderRepo == null) {
+      orderRepo = new OrderRepo(entityManager);
+    }
+    if (controller == null) {
+      controller = new ClientController(productRepo, orderRepo);
+    }
+  }
 
     // Calls ctrl to return all the products from the db.
     // test passed if: all the products have quantity > 0

@@ -7,6 +7,9 @@ import repo.ProductRepo;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,9 +18,9 @@ import java.util.Map;
 @ManagedBean(name = "searchBean")
 @SessionScoped
 public class SearchBean implements Serializable {
-  @EJB
+  private EntityManagerFactory factory = Persistence.createEntityManagerFactory("mysql");
+  private EntityManager entityManager;
   private ProductRepo productRepo;
-  @EJB
   private OrderRepo orderRepo;
 
   private ClientController controller;
@@ -34,11 +37,20 @@ public class SearchBean implements Serializable {
   }
 
   public Map<String, Object> getCategoryMap() {
-    if(categoryMap == null) {
-      categoryMap = new LinkedHashMap<>();
+    if (entityManager == null) {
+      entityManager = factory.createEntityManager();
+    }
+    if (productRepo == null) {
+      productRepo = new ProductRepo(entityManager);
+    }
+    if (orderRepo == null) {
+      orderRepo = new OrderRepo(entityManager);
     }
     if(controller == null) {
       controller = new ClientController(productRepo, orderRepo);
+    }
+    if(categoryMap == null) {
+      categoryMap = new LinkedHashMap<>();
     }
     categoryMap.put("All", "All");
     List<String> list = controller.getAllCategories();

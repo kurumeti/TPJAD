@@ -55,7 +55,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                Product name
+                                <h:commandLink action="#{productBean.sortByName}">
+                                    Product name
+                                </h:commandLink>
                             </f:facet>
                             <h:commandLink actionListener="#{productBean.clickListener(detailsBean)}" action="details">
                                 <f:param name="id" value="#{product.productId}"/>
@@ -64,7 +66,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                Product price (lei)
+                                <h:commandLink action="#{productBean.sortByPrice}">
+                                    Price (lei)
+                                </h:commandLink>
                             </f:facet>
                             <h:outputText value="#{product.productPrice}"/>
                         </h:column>
